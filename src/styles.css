@@ -1,0 +1,14 @@
+body {
+    display: flex;
+    flex-direction: column;
+    gap : 20px ;
+    align-items: center;
+}
+.containers {
+   display: flex;
+   justify-content: center;
+   gap : 30px ;
+}
+.start-btn {
+   width: 50px;
+}
