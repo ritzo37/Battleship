@@ -12,6 +12,9 @@ function ship(length) {
     getHitCnt() {
       return hitCnt;
     },
+    resetShipStats() {
+      hitCnt = 0;
+    },
   };
 }
 
@@ -19,7 +22,7 @@ function cell() {
   return {
     isShipCell: false,
     shipReference: null,
-    hitStatus : 0 , 
+    hitStatus: 0,
   };
 }
 
@@ -76,22 +79,21 @@ function Player() {
     markCordinate(x, y) {
       playerBoard[x][y].hitStatus = 1;
       if (playerBoard[x][y].isShipCell) {
-        this.hitShip(x,y);
+        this.hitShip(x, y);
       }
     },
-    isShipCell(x,y) {
-      return  playerBoard[x][y].isShipCell;
-    } ,
-    hitShip(x,y) {
-       playerBoard[x][y].shipReference.hit() ;
+    isShipCell(x, y) {
+      return playerBoard[x][y].isShipCell;
     },
-    sunkShipCheck(x,y) {
-       if (playerBoard[x][y].shipReference.isSunk()) {
-         return true ;
-       }
-       else {
-         return false; 
-       }
+    hitShip(x, y) {
+      playerBoard[x][y].shipReference.hit();
+    },
+    sunkShipCheck(x, y) {
+      if (playerBoard[x][y].shipReference.isSunk()) {
+        return true;
+      } else {
+        return false;
+      }
     },
     getBoard() {
       return playerBoard;
@@ -108,14 +110,26 @@ function Player() {
     getShipsPlaced() {
       return shipsPlacedCnt;
     },
-    hitCordinateCheck(x , y) {
-       if (playerBoard[x][y].hitStatus) {
-          return 1; 
-       }
-       else {
-         return 0 ;
-       }
-    }
+    hitCordinateCheck(x, y) {
+      if (playerBoard[x][y].hitStatus) {
+        return 1;
+      } else {
+        return 0;
+      }
+    },
+    clearBoard() {
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+          playerBoard[i][j].hitStatus = 0;
+          if (playerBoard[i][j].isShipCell) {
+            playerBoard[i][j].isShipCell = false;
+            playerBoard[i][j].shipReference.resetShipStats();
+            playerBoard[i][j].shipReference = null;
+          }
+        }
+      }
+      shipsPlacedCnt = 0;
+    },
   };
 }
 
