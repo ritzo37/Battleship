@@ -160,6 +160,7 @@ function screenController() {
 
   const startBtn = document.querySelector(".start-btn");
   const restartBtn = document.querySelector(".restart-btn");
+  restartBtn.disabled = true;
   startBtn.addEventListener("click", () => {
     if (!controller.getGameStatus()) {
       placer.placeShipOnPlayerBoard();
@@ -168,6 +169,7 @@ function screenController() {
       const messageDiv = document.querySelector(".message-div");
       messageDiv.textContent = "Player 1 turn !";
       startBtn.disabled = true;
+      restartBtn.disabled = false;
     }
   });
 
@@ -178,11 +180,12 @@ function screenController() {
     }
     const startBtn = document.querySelector(".start-btn");
     startBtn.disabled = false;
+    restartBtn.disabled = true;
     manager.clearBothGrids();
     player1.clearBoard();
     player2.clearBoard();
     const messageDiv = document.querySelector(".message-div");
-    messageDiv.textContent = "Player 1 turn !";
+    messageDiv.textContent = "";
   });
 
   const computerDivContainer = document.querySelector(".computer-container");
