@@ -1,14 +1,40 @@
 body {
-    display: flex;
-    flex-direction: column;
-    gap : 20px ;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+.heading-div {
+  font-size: 30px;
+  padding: 10px;
 }
 .containers {
-   display: flex;
-   justify-content: center;
-   gap : 30px ;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
 }
 .start-btn {
-   width: 50px;
+  width: 50px;
+}
+* {
+  /* margin: 0px; */
+  /* padding: 0px; */
+  box-sizing: border-box;
+}
+dialog::backdrop {
+  backdrop-filter: blur(3px);
+}
+
+.message-div {
+  width: fit-content;
+  height: fit-content;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialong-heading {
+  padding: 20px;
+  font-size: 32px;
 }

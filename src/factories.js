@@ -1,5 +1,7 @@
 function ship(length) {
   let hitCnt = 0;
+  let xCord = -1,
+    yCord = -1;
   return {
     shipLength: length,
     isSunk() {
@@ -14,6 +16,13 @@ function ship(length) {
     },
     resetShipStats() {
       hitCnt = 0;
+    },
+    getStartingCords() {
+      return [xCord, yCord];
+    },
+    setStartingCords(x, y) {
+      xCord = x;
+      yCord = y;
     },
   };
 }
@@ -59,6 +68,7 @@ function gameBoard() {
         for (let i = y; i < y + length; i++) {
           board[x][i].isShipCell = true;
           board[x][i].shipReference = playerShip;
+          board[x][y].shipReference.setStartingCords(x, y);
         }
         return 1;
       }
@@ -71,8 +81,9 @@ function Player() {
   let playerBoard = board.getBoard();
   let playerShips = [];
   let shipsPlacedCnt = 0;
+  let length = [5, 4, 3, 2];
   for (let i = 0; i < 4; i++) {
-    let currShip = ship(4);
+    let currShip = ship(length[i]);
     playerShips.push(currShip);
   }
   return {
@@ -98,10 +109,8 @@ function Player() {
     getBoard() {
       return playerBoard;
     },
-    placeShip(x, y, length, indx) {
-      if (this.getShipsPlaced() >= 4) return 0;
-      if (board.placeShip(x, y, length, playerShips[indx])) {
-        shipsPlacedCnt += 1;
+    placeShip(x, y, indx) {
+      if (board.placeShip(x, y, length[indx], playerShips[indx])) {
         return 1;
       } else {
         return 0;
@@ -124,11 +133,25 @@ function Player() {
           if (playerBoard[i][j].isShipCell) {
             playerBoard[i][j].isShipCell = false;
             playerBoard[i][j].shipReference.resetShipStats();
+            playerBoard[i][j].shipReference.setStartingCords(-1, -1);
             playerBoard[i][j].shipReference = null;
           }
         }
       }
       shipsPlacedCnt = 0;
+    },
+    getShipCords(x, y) {
+      return playerBoard[x][y].shipReference.getStartingCords(x, y);
+    },
+    getShipLength(x, y) {
+      return playerBoard[x][y].shipReference.shipLength;
+    },
+    getSunkShipCnt() {
+      let cnt = 0;
+      for (let i = 0; i < 4; i++) {
+        if (playerShips[i].isSunk()) cnt++;
+      }
+      return cnt;
     },
   };
 }
