@@ -395,7 +395,7 @@ function screenController() {
             );
             cell.style.backgroundColor = "green";
           }
-          messageDiv.textContent = "You just sunk one of the computer's ship!";
+          messageDiv.textContent = "You just sank one of the computer's ship!";
         } else {
           messageDiv.textContent = "You just hit one of the computer's shipt!";
         }
