@@ -101,12 +101,6 @@ function gridPlacer() {
           x = Math.floor(Math.random() * 10);
           y = Math.floor(Math.random() * 10);
         }
-        for (let coln = y; coln < y + length[i]; coln++) {
-          const cell = document.querySelector(
-            `.computer-container [data-x="${x}"][data-y="${coln}"]`
-          );
-          cell.style.backgroundColor = "red";
-        }
       }
     },
   };
@@ -357,11 +351,6 @@ function screenController() {
     if (!controller.getGameStatus()) {
       const dialogBox = document.querySelector(".shipPlacerDialog");
       dialogBox.showModal();
-      // // placer.placeShipOnPlayerBoard();
-      // // placer.placeComputerShips();
-      // controller.changeGameStatus();
-      // const messageDiv = document.querySelector(".message-div");
-      // messageDiv.textContent = "Player 1 turn !";
     }
   });
 
@@ -437,12 +426,13 @@ function screenController() {
               computerBrain.prevHitStatus = 0;
               computerBrain.prevCordsHit = [-1, -1];
               computerBrain.startingCordsFound = 0;
+              messageDiv.textContent = "Computer just sank one of your ship !";
             } else {
               computerBrain.onGoingHit = 1;
               computerBrain.prevHitStatus = 1;
               computerBrain.prevCordsHit = [cordX, cordY];
+              messageDiv.textContent = "Computer just hit your ship !";
             }
-            messageDiv.textContent = "Computer just hit your ship !";
           } else {
             computerBrain.prevHitStatus = 0;
             messageDiv.textContent = "Computer missed the shot !";
